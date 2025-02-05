@@ -21,7 +21,7 @@ services:
         - "traefik.http.routers.dihiva.tls=true"
 
 volumes:
-  sc-simpleweb-data-persistent:
+  dihiva_persistent:
     driver: local
     driver_opts:
       type: nfs
