@@ -14,8 +14,8 @@ services:
         condition: on-failure
       labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.dihiva.rule=Host(`dihiva0.fredhutch.org`)"
-        - "traefik.http.routers.dihiva-secured.rule=Host(`dihiva0.fredhutch.org`)"
+        - "traefik.http.routers.dihiva.rule=Host(`dihiva.fredhutch.org`)"
+        - "traefik.http.routers.dihiva-secured.rule=Host(`dihiva.fredhutch.org`)"
         - "traefik.http.routers.dihiva.entrypoints=web,web-secured"
         - "traefik.http.services.dihiva.loadbalancer.server.port=8888"
         - "traefik.http.routers.dihiva.tls=true"
