@@ -1,0 +1,34 @@
+version: '3.3'
+services:
+  dihiva:
+    image: victoorramos/dihiva:latest
+    command: ["R",
+              "-e",
+              "shiny::runApp('/dihiva/DIHIVAInterface',port=8888,host='0.0.0.0')"]
+    volumes: 
+      - dihiva_persistent:/dihiva/dihiva_analysis
+    networks:
+      - sc-swarm-net
+    deploy:
+      restart_policy:
+        condition: on-failure
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.dihiva.rule=Host(`dihiva0.fredhutch.org`)"
+        - "traefik.http.routers.dihiva-secured.rule=Host(`dihiva0.fredhutch.org`)"
+        - "traefik.http.routers.dihiva.entrypoints=web,web-secured"
+        - "traefik.http.services.dihiva.loadbalancer.server.port=8888"
+        - "traefik.http.routers.dihiva.tls=true"
+
+volumes:
+  sc-simpleweb-data-persistent:
+    driver: local
+    driver_opts:
+      type: nfs
+      device: "${PERSISTENT_VOLUME_PATH}"
+      o: addr=${NFS_SERVER},rw
+
+
+networks:
+  sc-swarm-net:
+    external: true
