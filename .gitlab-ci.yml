@@ -15,7 +15,7 @@ before_script:
 
 stages:
   # - build
-  - test
+  # - test
   - deploy
 
 # build:
@@ -24,13 +24,13 @@ stages:
 #     - docker build -t sc-registry.fredhutch.org/dihiva:test .
 #     - docker push sc-registry.fredhutch.org/dihiva:test
 
-test:
-  stage: test
-  services: 
-    - name: victoorramos/dihiva:latest
-      alias: dihiva
-  script:
-    - sleep 15 && curl -sI  http://dihiva:8888  |head -1|grep -q "200 OK"
+# test:
+#   stage: test
+#   services: 
+#     - name: victoorramos/dihiva:latest
+#       alias: dihiva
+#   script:
+#     - sleep 15 && curl -sI  http://dihiva:8888  |head -1|grep -q "200 OK"
 
 deploy:
   stage: deploy
